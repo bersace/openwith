@@ -94,6 +94,7 @@ string."
   "Open file with external program, if an association is configured."
   (let ((continue t)
         ;; visit indique que l'utilisateur ouvre le fichier et non qu'on lit un fichier (insert, ou autre cuisine interne)
+        (visit (nth 1 args))
         (has-clients (and (boundp 'server-clients)
                           (not (null server-clients)))))
     (when (and
