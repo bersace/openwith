@@ -93,7 +93,7 @@ string."
 (defun openwith-file-handler (operation &rest args)
   "Open file with external program, if an association is configured."
   (let ((continue t))
-    (when (and openwith-mode (not (buffer-modified-p)) (zerop (buffer-size)))
+    (when (and openwith-mode (not (buffer-modified-p)) (zerop (buffer-size)) (called-interactively-p))
       (let ((assocs openwith-associations)
             (file (car args))
             oa)
