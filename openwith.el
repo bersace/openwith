@@ -92,8 +92,9 @@ string."
 
 (defun openwith-file-handler (operation &rest args)
   "Open file with external program, if an association is configured."
-  (let ((continue t))
-    (when (and openwith-mode (not (buffer-modified-p)) (zerop (buffer-size)) (called-interactively-p 'any))
+  (let ((continue t)
+        (visit (nth 1 args)))
+    (when (and visit openwith-mode (not (buffer-modified-p)) (zerop (buffer-size)))
       (let ((assocs openwith-associations)
             (file (car args))
             oa)
@@ -112,8 +113,6 @@ string."
                     (openwith-open-windows file)
                   (openwith-open-unix (cadr oa) params))
                 (kill-buffer nil)
-                (when (featurep 'recentf)
-                  (recentf-add-file file))
                 ;; inhibit further actions
                 (progn (setq continue nil)
                        (message "Opened %s in external program"
