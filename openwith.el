@@ -92,9 +92,10 @@ string."
 
 (defun openwith-file-handler (operation &rest args)
   "Open file with external program, if an association is configured."
-  (let ((continue t)
+  (let ((continue t)  (let ((continue t)
+        ;; visit indique que l'utilisateur ouvre le fichier et non qu'on lit un fichier (insert, ou autre cuisine interne)
         (visit (nth 1 args)))
-    (when (and visit openwith-mode (not (buffer-modified-p)) (zerop (buffer-size)))
+    (when (and (not (null server-clients)) visit openwith-mode (not (buffer-modified-p)) (zerop (buffer-size)))
       (let ((assocs openwith-associations)
             (file (car args))
             oa)
